@@ -138,7 +138,8 @@ ul{margin:0;padding:0;list-style:none;}
 .f-contacts .big{font-size:18px;}
 .f-contacts .addr{color:var(--muted);margin-top:28px;}
 .f-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 30px;}
-.f-cols a{color:var(--muted);font-size:15px;}
+.f-cols>div{display:flex;flex-direction:column;gap:14px;}
+.f-cols a{display:block;color:var(--muted);font-size:15px;}
 .f-cols a:hover{color:#fff;}
 
 /* ===== Section headings ===== */
@@ -222,10 +223,14 @@ ul{margin:0;padding:0;list-style:none;}
 .total{font-size:14px;color:var(--muted);}
 .total b{color:#fff;font-size:16px;margin-left:6px;}
 
-/* ===== Currency switch ===== */
-.cur-switch{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;}
-.cur-switch button{background:transparent;border:none;color:var(--muted);padding:7px 16px;font-size:14px;font-weight:600;}
-.cur-switch button.is-on{background:var(--accent);color:#fff;}
+/* ===== Currency switch (matches Figma: label + pill switch) ===== */
+.cur-row{display:flex;justify-content:flex-end;margin-bottom:24px;}
+.cur-toggle{display:inline-flex;align-items:center;gap:14px;cursor:pointer;user-select:none;}
+.cur-label{color:var(--text);font-size:16px;}
+.cur-sw{position:relative;width:34px;height:18px;border-radius:999px;border:none;background:rgba(255,255,255,.22);padding:0;cursor:pointer;transition:background .2s ease;flex:none;}
+.cur-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s ease;}
+.cur-sw[aria-checked="true"]{background:var(--accent);}
+.cur-sw[aria-checked="true"] .cur-knob{transform:translateX(16px);}
 
 /* landing */
 .landing{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:60px 20px;}

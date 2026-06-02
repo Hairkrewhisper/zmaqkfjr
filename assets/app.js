@@ -1,30 +1,30 @@
 /* LeCucine — shared interactions: currency switch, mobile menu, accordion, gallery */
 (function(){
   // ---------- Currency ----------
-  // Base prices are stored in RUB (data-rub). EUR is derived with a fixed rate
-  // (easily swappable for a live FX API later).
-  var RATE_RUB_PER_EUR = 100;
+  // Each price carries both currencies taken 1:1 from the Figma macet:
+  // data-rub (default, ₽) and data-eur (exact € value from the design).
   function fmt(n, cur){
     var s = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
     return cur === 'eur' ? (s + ' \u20ac') : (s + ' \u20bd');
   }
   function applyCurrency(cur){
     document.querySelectorAll('[data-rub]').forEach(function(el){
-      var rub = parseFloat(el.getAttribute('data-rub'));
-      if(isNaN(rub)) return;
-      var val = cur === 'eur' ? rub / RATE_RUB_PER_EUR : rub;
+      var val = parseFloat(el.getAttribute(cur === 'eur' ? 'data-eur' : 'data-rub'));
+      if(isNaN(val)) return;
       var suffix = el.getAttribute('data-suffix') || '';
       var prefix = el.getAttribute('data-prefix') || '';
       el.textContent = prefix + fmt(val, cur) + suffix;
     });
-    document.querySelectorAll('.cur-switch button').forEach(function(b){
-      b.classList.toggle('is-on', b.getAttribute('data-cur') === cur);
+    document.querySelectorAll('.cur-sw').forEach(function(b){
+      b.setAttribute('aria-checked', cur === 'eur' ? 'true' : 'false');
     });
     try{ localStorage.setItem('lc_currency', cur); }catch(e){}
   }
   document.addEventListener('click', function(e){
-    var b = e.target.closest('.cur-switch button');
-    if(b){ applyCurrency(b.getAttribute('data-cur')); }
+    if(e.target.closest('.cur-toggle')){
+      var cur = (localStorage.getItem('lc_currency') === 'eur') ? 'rub' : 'eur';
+      applyCurrency(cur);
+    }
   });
   var saved = 'rub';
   try{ saved = localStorage.getItem('lc_currency') || 'rub'; }catch(e){}
