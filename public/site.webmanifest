@@ -1,0 +1,16 @@
+{
+  "name": "ia9.app",
+  "short_name": "ia9",
+  "description": "Premium web-agency ia9.app — сайты, SEO, CRM и AI-агенты.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6fd",
+  "theme_color": "#7c3aed",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
